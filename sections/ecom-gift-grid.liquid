@@ -1,0 +1,180 @@
+{{ 'ecom-test.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ecom-test.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign selected_collection = section.settings.collection
+  assign max_products = 6
+%}
+
+<section
+  class="eg-grid"
+  data-eg-grid
+  data-currency="{{ cart.currency.iso_code }}"
+  data-bonus-variant-id="{% if section.settings.bonus_product != blank %}{{ section.settings.bonus_product.selected_or_first_available_variant.id }}{% endif %}"
+>
+  <div class="eg-grid__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="eg-grid__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="eg-grid__items">
+      {% if selected_collection != blank and selected_collection.products_count > 0 %}
+        {% for product in selected_collection.products limit: max_products %}
+          <div class="eg-card">
+            <button
+              type="button"
+              class="eg-card__trigger"
+              data-eg-open-popup
+              aria-label="Open {{ product.title | escape }}"
+            >
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g filter="url(#eg-plus-filter-{{ section.id }}-{{ forloop.index }})">
+                  <circle cx="15" cy="12" r="11" fill="#F8F8F8" fill-opacity="0.9"/>
+                  <path d="M15.3457 8.04175V16.5033" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                  <path d="M11.1152 12.2725H19.5768" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                </g>
+                <defs>
+                  <filter id="eg-plus-filter-{{ section.id }}-{{ forloop.index }}" x="0" y="0" width="30" height="30" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                    <feOffset dy="3"/>
+                    <feGaussianBlur stdDeviation="2"/>
+                    <feComposite in2="hardAlpha" operator="out"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"/>
+                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+                  </filter>
+                </defs>
+              </svg>
+            </button>
+
+            <div class="eg-card__image-wrap">
+              {% if product.featured_image != blank %}
+                {{
+                  product.featured_image
+                  | image_url: width: 900
+                  | image_tag:
+                    loading: 'lazy',
+                    class: 'eg-card__image',
+                    alt: product.title
+                }}
+              {% else %}
+                {{ 'product-apparel-1' | placeholder_svg_tag: 'eg-card__image eg-card__image--placeholder' }}
+              {% endif %}
+            </div>
+
+            <script type="application/json" class="eg-product-json">
+              {{ product | json }}
+            </script>
+          </div>
+        {% endfor %}
+      {% else %}
+        {% for i in (1..6) %}
+          <div class="eg-card">
+            <div class="eg-card__placeholder">Select a collection</div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="eg-popup" data-eg-popup aria-hidden="true">
+    <div class="eg-popup__overlay" data-eg-close-popup></div>
+
+    <div class="eg-popup__panel" role="dialog" aria-modal="true">
+      <button type="button" class="eg-popup__close" data-eg-close-popup aria-label="Close popup">
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g filter="url(#eg-close-filter-{{ section.id }})">
+            <circle cx="15" cy="12" r="11" fill="#F8F8F8" fill-opacity="0.9"/>
+            <path d="M12.3536 9.28107L18.3368 15.2643" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+            <path d="M12.3535 15.2642L18.3367 9.28095" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+          </g>
+          <defs>
+            <filter id="eg-close-filter-{{ section.id }}" x="0" y="0" width="30" height="30" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+              <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+              <feOffset dy="3"/>
+              <feGaussianBlur stdDeviation="2"/>
+              <feComposite in2="hardAlpha" operator="out"/>
+              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0"/>
+              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+            </filter>
+          </defs>
+        </svg>
+      </button>
+
+      <div class="eg-popup__body">
+        <div class="eg-popup__top">
+          <div class="eg-popup__image-wrap">
+            <img class="eg-popup__image" data-eg-popup-image alt="">
+          </div>
+
+          <div class="eg-popup__summary">
+            <h3 data-eg-popup-title></h3>
+            <div class="eg-popup__price" data-eg-popup-price></div>
+            <div class="eg-popup__description" data-eg-popup-description></div>
+          </div>
+        </div>
+
+        <div class="eg-popup__options" data-eg-popup-options></div>
+
+        <button type="button" class="eg-popup__add" data-eg-add-cart>
+          ADD TO CART
+          <span>→</span>
+        </button>
+
+        <p class="eg-popup__message" data-eg-message></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="eg-cart-toast" data-eg-cart-toast aria-hidden="true">
+    <button type="button" class="eg-cart-toast__close" data-eg-cart-toast-close aria-label="Close cart notification">
+      ×
+    </button>
+
+    <div class="eg-cart-toast__image-wrap">
+      <img class="eg-cart-toast__image" data-eg-toast-image alt="">
+    </div>
+
+    <div class="eg-cart-toast__content">
+      <p class="eg-cart-toast__label">Added to cart</p>
+      <h3 data-eg-toast-title></h3>
+
+      <div class="eg-cart-toast__meta">
+        <span>Qty: <strong data-eg-toast-qty>1</strong></span>
+        <span data-eg-toast-price></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ecom Gift Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Grid heading",
+      "default": "Tisso vison in the wild"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "product",
+      "id": "bonus_product",
+      "label": "Bonus product - Soft Winter Jacket"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ecom Gift Grid"
+    }
+  ]
+}
+{% endschema %}

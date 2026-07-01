@@ -1,0 +1,338 @@
+.eg-header,
+.eg-header * {
+  box-sizing: border-box;
+  font-family: Jost, Arial, Helvetica, sans-serif;
+}
+
+.eg-header {
+  width: 100%;
+  background: #ffffff;
+  position: relative;
+  z-index: 20;
+}
+
+.eg-header__inner {
+  width: 100%;
+  max-width: 1440px;
+  height: 45px;
+  margin: 0 auto;
+  padding: 0 28px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+  background: #ffffff;
+  border-bottom: 1px solid #e9e9e9;
+}
+
+.eg-header__logo {
+  justify-self: start;
+  color: #111111;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.eg-header__text {
+  margin: 0;
+  color: #111111;
+  font-size: 16px;
+  line-height: 1;
+  text-align: center;
+}
+
+/* Animated Button */
+
+.eg-animated-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  text-decoration: none;
+  text-transform: uppercase;
+  background: #fff544;
+  color: #000000;
+  border: 0;
+  cursor: pointer;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    color 0.35s ease;
+}
+
+.eg-animated-button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: #000000;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.eg-animated-button:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+.eg-animated-button:hover::before {
+  transform: scaleX(1);
+}
+
+.eg-animated-button__label {
+  position: relative;
+  z-index: 2;
+}
+
+.eg-animated-button__arrow {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s ease;
+}
+
+.eg-animated-button__arrow svg {
+  width: 27px;
+  height: 12px;
+  display: block;
+}
+
+.eg-animated-button:hover .eg-animated-button__arrow {
+  transform: translateX(6px);
+}
+
+.eg-header__button {
+  justify-self: end;
+  width: 220px;
+  height: 46px;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.eg-header__menu-button,
+.eg-header__mobile-panel {
+  display: none;
+}
+
+/* Mobile */
+
+@media screen and (max-width: 749px) {
+  .eg-header {
+    background: #f7f7f7;
+  }
+
+  .eg-header__inner {
+    height: 66px;
+    padding: 0 16px;
+    grid-template-columns: 32px 1fr 32px;
+    gap: 0;
+    background: #f7f7f7;
+    border-bottom: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  .eg-header__menu-button {
+    display: flex;
+    width: 22px;
+    height: 18px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    justify-self: start;
+  }
+
+  .eg-header__menu-button span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: #000000;
+  }
+
+  .eg-header__logo {
+    justify-self: center;
+    font-size: 20px;
+    letter-spacing: 0.06em;
+  }
+
+  .eg-header__text,
+  .eg-header__button {
+    display: none;
+  }
+
+  /* Fixed mobile menu */
+  .eg-header__mobile-panel {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 999999;
+    display: block;
+    width: 100%;
+    background: #f2f2f2;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-14px);
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease,
+      visibility 0.35s ease;
+  }
+
+  .eg-header.is-menu-open .eg-header__mobile-panel {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .eg-header__mobile-top {
+    height: 66px;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 32px 1fr 32px;
+    align-items: center;
+    background: #f7f7f7;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  }
+
+  .eg-header__close {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    justify-self: start;
+  }
+
+  .eg-header__close span {
+    position: absolute;
+    left: 3px;
+    top: 11px;
+    width: 18px;
+    height: 2px;
+    background: #000000;
+  }
+
+  .eg-header__close span:first-child {
+    transform: rotate(45deg);
+  }
+
+  .eg-header__close span:last-child {
+    transform: rotate(-45deg);
+  }
+
+  .eg-header__mobile-logo {
+    justify-self: center;
+    color: #000000;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .eg-header__mobile-body {
+    padding: 25px 24px 31px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    background: #f2f2f2;
+  }
+
+  .eg-header__mobile-body p {
+    margin: 0;
+    color: #000000;
+    font-size: 16px;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .eg-header__mobile-button {
+    width: 244px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 34px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+}
+
+/* Tablet */
+
+@media screen and (min-width: 750px) and (max-width: 989px) {
+  .eg-header__inner {
+    max-width: 989px;
+    height: 44px;
+    padding: 0 24px;
+  }
+
+  .eg-header__logo {
+    font-size: 14px;
+  }
+
+  .eg-header__text {
+    font-size: 11px;
+  }
+
+  .eg-header__button {
+    width: 150px;
+    height: 30px;
+    font-size: 10px;
+    gap: 18px;
+  }
+}
+
+/* Desktop */
+
+@media screen and (min-width: 990px) and (max-width: 2100px) {
+  .eg-header__inner {
+    max-width: 1440px;
+    height: 60px;
+    padding: 0 28px;
+  }
+}
+
+/* Large Desktop */
+
+@media screen and (min-width: 2101px) {
+  .eg-header__inner {
+    max-width: 3840px;
+    height: 110px;
+    padding: 0 120px;
+  }
+
+  .eg-header__logo {
+    font-size: 38px;
+  }
+
+  .eg-header__text {
+    font-size: 28px;
+  }
+
+  .eg-header__button {
+    width: 360px;
+    height: 75px;
+    font-size: 24px;
+    gap: 50px;
+  }
+}

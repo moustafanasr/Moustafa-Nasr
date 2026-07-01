@@ -1,0 +1,140 @@
+{{ 'ecom-gift-banner.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'ecom-gift-banner.js' | asset_url }}" defer></script>
+
+<section class="eg-banner" data-eg-banner>
+  <div class="eg-banner__main">
+    <div class="eg-banner__media">
+      {% if section.settings.banner_image != blank or section.settings.tablet_banner_image != blank or section.settings.mobile_banner_image != blank %}
+        <picture>
+          {% if section.settings.mobile_banner_image != blank %}
+            <source
+              media="(max-width: 749px)"
+              srcset="{{ section.settings.mobile_banner_image | image_url: width: 900 }}"
+            >
+          {% endif %}
+
+          {% if section.settings.tablet_banner_image != blank %}
+            <source
+              media="(min-width: 750px) and (max-width: 989px)"
+              srcset="{{ section.settings.tablet_banner_image | image_url: width: 1400 }}"
+            >
+          {% endif %}
+
+          {% assign fallback_image = section.settings.banner_image %}
+
+          {% if fallback_image == blank %}
+            {% assign fallback_image = section.settings.tablet_banner_image %}
+          {% endif %}
+
+          {% if fallback_image == blank %}
+            {% assign fallback_image = section.settings.mobile_banner_image %}
+          {% endif %}
+
+          {% if fallback_image != blank %}
+            {{
+              fallback_image
+              | image_url: width: 3840
+              | image_tag:
+                class: 'eg-banner__image',
+                loading: 'eager',
+                alt: section.settings.heading
+            }}
+          {% endif %}
+        </picture>
+      {% endif %}
+    </div>
+
+    <div class="eg-banner__content">
+      <h1>{{ section.settings.heading }}</h1>
+
+      <p class="eg-banner__description eg-banner__description--desktop">
+        {{ section.settings.description_desktop }}
+      </p>
+
+      <p class="eg-banner__description eg-banner__description--mobile">
+        {{ section.settings.description_mobile }}
+      </p>
+
+      {% if section.settings.button_label != blank %}
+        <a class="eg-banner__button eg-banner-animated-button" href="{{ section.settings.button_link | default: '#' }}">
+          <span class="eg-banner-animated-button__label">
+            {{ section.settings.button_label }}
+          </span>
+
+          <span class="eg-banner-animated-button__arrow">
+            <svg width="27" height="12" viewBox="0 0 27 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.75 4.77298C0.335786 4.77298 -3.62117e-08 5.10877 0 5.52298C3.62117e-08 5.93719 0.335786 6.27298 0.75 6.27298L0.75 4.77298ZM26.2803 6.05331C26.5732 5.76041 26.5732 5.28554 26.2803 4.99265L21.5074 0.219677C21.2145 -0.0732163 20.7396 -0.0732163 20.4467 0.219677C20.1538 0.512571 20.1538 0.987444 20.4467 1.28034L24.6893 5.52298L20.4467 9.76562C20.1538 10.0585 20.1538 10.5334 20.4467 10.8263C20.7396 11.1192 21.2145 11.1192 21.5074 10.8263L26.2803 6.05331ZM0.75 6.27298L25.75 6.27298L25.75 4.77298L0.75 4.77298L0.75 6.27298Z" fill="currentColor"/>
+            </svg>
+          </span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="eg-banner__bottom-text">
+    {{ section.settings.bottom_text }}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ecom Gift Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Desktop / Large desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "tablet_banner_image",
+      "label": "Tablet image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_banner_image",
+      "label": "Mobile image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "description_desktop",
+      "label": "Desktop description",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+    },
+    {
+      "type": "textarea",
+      "id": "description_mobile",
+      "label": "Mobile description",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "bottom_text",
+      "label": "Bottom text",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ecom Gift Banner"
+    }
+  ]
+}
+{% endschema %}

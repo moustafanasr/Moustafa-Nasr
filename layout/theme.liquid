@@ -44,10 +44,6 @@
     {% render 'chat-drawer' %}
 
     <div class="page-wrapper">
-      <div id="header-group">
-        {% sections 'header-group' %}
-      </div>
-
       <script>
         // Inline header height and menu style calculations to prevent layout shift
         // Note: Updates in calculateHeaderGroupHeight(), updateTransparentHeaderOffset() and setHeaderMenuStyle() utilities.js should be kept in sync with this function
@@ -126,10 +122,6 @@
       >
         {{ content_for_layout }}
       </main>
-
-      <footer>
-        {% sections 'footer-group' %}
-      </footer>
     </div>
 
     {% render 'cart-drawer', render_wrapper: true %}
