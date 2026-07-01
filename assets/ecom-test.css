@@ -62,6 +62,8 @@
 .eg-card__trigger {
   position: absolute;
   z-index: 5;
+  left: var(--desktop-left, 50%) !important;
+  top: var(--desktop-top, 50%) !important;
   width: 30px;
   height: 30px;
   padding: 0;
@@ -74,18 +76,17 @@
 .eg-card__trigger svg {
   width: 30px;
   height: 30px;
+  display: block;
 }
 
-.eg-card:nth-child(1) .eg-card__trigger { left: 78%; top: 47%; }
-.eg-card:nth-child(2) .eg-card__trigger { left: 58%; top: 32%; }
-.eg-card:nth-child(3) .eg-card__trigger { left: 48%; top: 22%; }
-.eg-card:nth-child(4) .eg-card__trigger { left: 34%; top: 34%; }
-.eg-card:nth-child(5) .eg-card__trigger { left: 58%; top: 36%; }
-.eg-card:nth-child(6) .eg-card__trigger { left: 48%; top: 38%; }
-
 @keyframes egHotspotFloat {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); }
-  50% { transform: translate(-50%, -55%) scale(1.035); }
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  50% {
+    transform: translate(-50%, -55%) scale(1.035);
+  }
 }
 
 /* Popup */
@@ -104,7 +105,7 @@
 .eg-popup__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,.18);
+  background: rgba(0, 0, 0, 0.18);
 }
 
 .eg-popup__panel {
@@ -206,7 +207,7 @@
   grid-template-columns: repeat(var(--eg-option-count), 1fr);
   width: 100%;
   height: 42px;
-  border: .5px solid #000;
+  border: 0.5px solid #000;
   overflow: hidden;
   background: #fff;
 }
@@ -219,7 +220,7 @@
   width: calc(100% / var(--eg-option-count));
   background: #000;
   transform: translateX(calc(var(--eg-selected-index) * 100%));
-  transition: transform .7s cubic-bezier(.22,1,.36,1);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .eg-option__button {
@@ -228,7 +229,7 @@
   height: 42px;
   padding: 0 14px;
   border: 0;
-  border-right: .5px solid #000;
+  border-right: 0.5px solid #000;
   background: transparent;
   color: #000;
   cursor: pointer;
@@ -285,7 +286,7 @@
 .eg-size-dropdown__icon svg {
   width: 15px;
   height: 9px;
-  transition: transform .35s ease;
+  transition: transform 0.35s ease;
 }
 
 .eg-size-dropdown.is-open .eg-size-dropdown__icon svg {
@@ -352,7 +353,7 @@
   gap: 48px;
   font-size: 14px;
   text-transform: uppercase;
-  transition: opacity .2s ease, visibility .2s ease;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
 .eg-popup__body.is-size-open .eg-popup__add {
@@ -378,153 +379,27 @@
 
 .eg-cart-toast {
   position: fixed;
-  left: 24px;
-  bottom: 24px;
-  z-index: 1000000;
-  width: 340px;
-  max-width: calc(100vw - 32px);
-  padding: 14px 42px 14px 14px;
-  display: grid;
-  grid-template-columns: 72px 1fr;
-  gap: 12px;
-  background: #fff;
-  border: 1px solid #d9d9d9;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(18px);
-  transition: .35s ease;
-}
-
-.eg-cart-toast.is-visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.eg-cart-toast__close {
-  position: absolute;
-  right: 10px;
-  top: 6px;
-  border: 0;
-  background: transparent;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-.eg-cart-toast__image-wrap {
-  width: 72px;
-  height: 86px;
-  overflow: hidden;
-}
-
-.eg-cart-toast__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-@media screen and (max-width: 749px) {
-  .eg-grid {
-    padding: 20px 12px 45px;
-  }
-
-  .eg-grid__items {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4px;
-  }
-
-  .eg-popup__panel {
-    width: 310px;
-    max-width: calc(100vw - 24px);
-  }
-}
-
-.eg-cart-toast {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 1000000;
-  width: 360px;
-  max-width: calc(100vw - 32px);
-  padding: 14px 42px 14px 14px;
-  display: grid;
-  grid-template-columns: 82px 1fr;
-  gap: 12px;
-  align-items: center;
-  background: #fff;
-  border: 1px solid #d9d9d9;
-  box-shadow: 0 16px 40px rgba(0,0,0,.18);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(18px);
-  transition: .35s ease;
-}
-
-.eg-cart-toast.is-visible {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
-
-.eg-cart-toast__close {
-  position: absolute;
-  right: 10px;
-  top: 6px;
-  border: 0;
-  background: transparent;
-  font-size: 22px;
-  cursor: pointer;
-}
-
-.eg-cart-toast__image-wrap {
-  width: 82px;
-  height: 96px;
-  overflow: hidden;
-  background: #eee;
-}
-
-.eg-cart-toast__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.eg-cart-toast__label {
-  margin: 0 0 5px;
-  font-size: 11px;
-  text-transform: uppercase;
-  color: #555;
-}
-
-.eg-cart-toast h3 {
-  margin: 0 0 8px;
-  font-size: 15px;
-  line-height: 1.2;
-  font-weight: 400;
-}
-
-.eg-cart-toast__meta {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 13px;
-}
-
-/* Final Toast Design */
-.eg-cart-toast {
   left: 24px !important;
   right: auto !important;
   bottom: 24px !important;
-
+  z-index: 1000000;
   width: 390px !important;
   max-width: calc(100vw - 32px) !important;
   padding: 18px 44px 18px 18px !important;
-
   background: #fff !important;
   border: 0 !important;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16) !important;
-
   display: block !important;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(18px);
+  transition: 0.35s ease;
+}
+
+.eg-cart-toast.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
 }
 
 .eg-cart-toast__close {
@@ -533,8 +408,11 @@
   top: 12px !important;
   width: 22px !important;
   height: 22px !important;
+  border: 0;
+  background: transparent;
   font-size: 24px !important;
   line-height: 20px !important;
+  cursor: pointer;
 }
 
 .eg-cart-toast__products {
@@ -555,6 +433,7 @@
   height: 96px !important;
   object-fit: cover !important;
   display: block !important;
+  background: #eee;
 }
 
 .eg-cart-toast__label {
@@ -585,4 +464,34 @@
 
 .eg-cart-toast__meta span {
   display: block !important;
+}
+
+/* Mobile */
+
+@media screen and (max-width: 749px) {
+  .eg-grid {
+    padding: 20px 12px 45px;
+  }
+
+  .eg-grid__items {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+  }
+
+  .eg-card__trigger {
+    left: var(--mobile-left, var(--desktop-left, 50%)) !important;
+    top: var(--mobile-top, var(--desktop-top, 50%)) !important;
+  }
+
+  .eg-popup__panel {
+    width: 310px;
+    max-width: calc(100vw - 24px);
+  }
+
+  .eg-cart-toast {
+    left: 12px !important;
+    bottom: 12px !important;
+    width: calc(100vw - 24px) !important;
+    max-width: calc(100vw - 24px) !important;
+  }
 }

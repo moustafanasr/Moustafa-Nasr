@@ -20,12 +20,23 @@
     <div class="eg-grid__items">
       {% if selected_collection != blank and selected_collection.products_count > 0 %}
         {% for product in selected_collection.products limit: max_products %}
+          {% assign desktop_left_key = 'plus_desktop_left_' | append: forloop.index %}
+          {% assign desktop_top_key = 'plus_desktop_top_' | append: forloop.index %}
+          {% assign mobile_left_key = 'plus_mobile_left_' | append: forloop.index %}
+          {% assign mobile_top_key = 'plus_mobile_top_' | append: forloop.index %}
+
           <div class="eg-card">
             <button
               type="button"
               class="eg-card__trigger"
               data-eg-open-popup
               aria-label="Open {{ product.title | escape }}"
+              style="
+                --desktop-left: {{ section.settings[desktop_left_key] }}%;
+                --desktop-top: {{ section.settings[desktop_top_key] }}%;
+                --mobile-left: {{ section.settings[mobile_left_key] }}%;
+                --mobile-top: {{ section.settings[mobile_top_key] }}%;
+              "
             >
               <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g filter="url(#eg-plus-filter-{{ section.id }}-{{ forloop.index }})">
@@ -169,7 +180,43 @@
       "type": "product",
       "id": "bonus_product",
       "label": "Bonus product - Soft Winter Jacket"
-    }
+    },
+
+    { "type": "header", "content": "Plus icon position - Product 1" },
+    { "type": "range", "id": "plus_desktop_left_1", "label": "Desktop left %", "min": 0, "max": 100, "step": 1, "default": 78 },
+    { "type": "range", "id": "plus_desktop_top_1", "label": "Desktop top %", "min": 0, "max": 100, "step": 1, "default": 47 },
+    { "type": "range", "id": "plus_mobile_left_1", "label": "Mobile left %", "min": 0, "max": 100, "step": 1, "default": 78 },
+    { "type": "range", "id": "plus_mobile_top_1", "label": "Mobile top %", "min": 0, "max": 100, "step": 1, "default": 47 },
+
+    { "type": "header", "content": "Plus icon position - Product 2" },
+    { "type": "range", "id": "plus_desktop_left_2", "label": "Desktop left %", "min": 0, "max": 100, "step": 1, "default": 58 },
+    { "type": "range", "id": "plus_desktop_top_2", "label": "Desktop top %", "min": 0, "max": 100, "step": 1, "default": 32 },
+    { "type": "range", "id": "plus_mobile_left_2", "label": "Mobile left %", "min": 0, "max": 100, "step": 1, "default": 58 },
+    { "type": "range", "id": "plus_mobile_top_2", "label": "Mobile top %", "min": 0, "max": 100, "step": 1, "default": 32 },
+
+    { "type": "header", "content": "Plus icon position - Product 3" },
+    { "type": "range", "id": "plus_desktop_left_3", "label": "Desktop left %", "min": 0, "max": 100, "step": 1, "default": 48 },
+    { "type": "range", "id": "plus_desktop_top_3", "label": "Desktop top %", "min": 0, "max": 100, "step": 1, "default": 22 },
+    { "type": "range", "id": "plus_mobile_left_3", "label": "Mobile left %", "min": 0, "max": 100, "step": 1, "default": 48 },
+    { "type": "range", "id": "plus_mobile_top_3", "label": "Mobile top %", "min": 0, "max": 100, "step": 1, "default": 22 },
+
+    { "type": "header", "content": "Plus icon position - Product 4" },
+    { "type": "range", "id": "plus_desktop_left_4", "label": "Desktop left %", "min": 0, "max": 100, "step": 1, "default": 34 },
+    { "type": "range", "id": "plus_desktop_top_4", "label": "Desktop top %", "min": 0, "max": 100, "step": 1, "default": 34 },
+    { "type": "range", "id": "plus_mobile_left_4", "label": "Mobile left %", "min": 0, "max": 100, "step": 1, "default": 34 },
+    { "type": "range", "id": "plus_mobile_top_4", "label": "Mobile top %", "min": 0, "max": 100, "step": 1, "default": 34 },
+
+    { "type": "header", "content": "Plus icon position - Product 5" },
+    { "type": "range", "id": "plus_desktop_left_5", "label": "Desktop left %", "min": 0, "max": 100, "step": 1, "default": 58 },
+    { "type": "range", "id": "plus_desktop_top_5", "label": "Desktop top %", "min": 0, "max": 100, "step": 1, "default": 36 },
+    { "type": "range", "id": "plus_mobile_left_5", "label": "Mobile left %", "min": 0, "max": 100, "step": 1, "default": 58 },
+    { "type": "range", "id": "plus_mobile_top_5", "label": "Mobile top %", "min": 0, "max": 100, "step": 1, "default": 36 },
+
+    { "type": "header", "content": "Plus icon position - Product 6" },
+    { "type": "range", "id": "plus_desktop_left_6", "label": "Desktop left %", "min": 0, "max": 100, "step": 1, "default": 48 },
+    { "type": "range", "id": "plus_desktop_top_6", "label": "Desktop top %", "min": 0, "max": 100, "step": 1, "default": 38 },
+    { "type": "range", "id": "plus_mobile_left_6", "label": "Mobile left %", "min": 0, "max": 100, "step": 1, "default": 48 },
+    { "type": "range", "id": "plus_mobile_top_6", "label": "Mobile top %", "min": 0, "max": 100, "step": 1, "default": 38 }
   ],
   "presets": [
     {
@@ -177,4 +224,4 @@
     }
   ]
 }
-{% endschema %}
+{% endschema %} 
